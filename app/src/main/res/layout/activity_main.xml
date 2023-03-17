@@ -12,13 +12,9 @@
     android:orientation="vertical"
     android:background="@color/back_geral"
     tools:context=".activity.MainActivity">
-
-
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
@@ -51,7 +47,6 @@
             android:background="@color/back_op"
             android:elevation="9dp"
             app:cardCornerRadius="@dimen/loginCardRadius">
-
 
             <LinearLayout
                 style="@style/linearParent"

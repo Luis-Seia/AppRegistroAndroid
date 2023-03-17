@@ -79,13 +79,13 @@ public class OperationActivity extends AppCompatActivity {
         binding.spinner.setAdapter(adapter);
 
 
-//        try{
-//            database.execSQL("CREATE TABLE IF NOT EXISTS registo(nome VACHAR(20), idade INT(2), sexo VARCHAR(10), contacto INT(11), horario VARCHAR(30))");
-//
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            Log.i("som", e.getMessage());
-//        }
+        try{
+            database.execSQL("CREATE TABLE IF NOT EXISTS registo(nome VACHAR(20), idade INT(2), sexo VARCHAR(10), contacto INT(11), horario VARCHAR(30))");
+
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.i("som", e.getMessage());
+        }
 
         //radio Button selected
         binding.radioGenero.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -110,7 +110,7 @@ public class OperationActivity extends AppCompatActivity {
             }
         });
 
-       // SQLiteDatabase finalDatabase = database;
+       SQLiteDatabase finalDatabase = database;
         binding.buttonGravar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,8 +122,8 @@ public class OperationActivity extends AppCompatActivity {
                 if(validation(nome, idade, genero, contacto, spinnerSelected)){
                     Registro registro = new Registro(nome, idade, genero, contacto, spinnerSelected);
                     registros.add(registro);
-//                    finalDatabase.execSQL("INSERT INTO registo(nome, idade, sexo, contacto, horario) VALUES('"+nome+"', "+idade+", '"+genero+"',"+contacto+", '"+spinnerSelected+"')");
-//
+                    finalDatabase.execSQL("INSERT INTO registo(nome, idade, sexo, contacto, horario) VALUES('"+nome+"', "+idade+", '"+genero+"',"+contacto+", '"+spinnerSelected+"')");
+
                     binding.editNome.setText("");
                     binding.editIdade.setText("");
                     binding.editContacto.setText("");
@@ -145,17 +145,17 @@ public class OperationActivity extends AppCompatActivity {
                             Log.i("Horario", registro.getHorario());
                     }
 
-//                    Cursor cursor = finalDatabase.rawQuery("SELECT nome, idade, sexo, contacto, horario FROM  registo", null);
-//
-//                    if(cursor != null && cursor.moveToFirst()){
-//                        do{
-//                            Log.i("Nome", cursor.getString(0));
-//                            Log.i("idade", String.valueOf(cursor.getInt(1)));
-//                            Log.i("sexo", cursor.getString(2));
-//                            Log.i("contacto", String.valueOf(cursor.getInt(3)));
-//                            Log.i("Horario", cursor.getString(4));
-//                        }while (cursor.moveToNext());
-//                    }
+                    Cursor cursor = finalDatabase.rawQuery("SELECT nome, idade, sexo, contacto, horario FROM  registo", null);
+
+                    if(cursor != null && cursor.moveToFirst()){
+                        do{
+                            Log.i("Nome", cursor.getString(0));
+                            Log.i("idade", String.valueOf(cursor.getInt(1)));
+                            Log.i("sexo", cursor.getString(2));
+                            Log.i("contacto", String.valueOf(cursor.getInt(3)));
+                            Log.i("Horario", cursor.getString(4));
+                        }while (cursor.moveToNext());
+                    }
                 }catch(Exception e){
                     e.printStackTrace();
                     Log.i("tag", e.getMessage());
