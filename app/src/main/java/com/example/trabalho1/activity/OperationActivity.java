@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.trabalho1.R;
 import com.example.trabalho1.databinding.ActivityOperationBinding;
@@ -123,11 +124,12 @@ public class OperationActivity extends AppCompatActivity {
                     Registro registro = new Registro(nome, idade, genero, contacto, spinnerSelected);
                     registros.add(registro);
                     finalDatabase.execSQL("INSERT INTO registo(nome, idade, sexo, contacto, horario) VALUES('"+nome+"', "+idade+", '"+genero+"',"+contacto+", '"+spinnerSelected+"')");
-
                     binding.editNome.setText("");
                     binding.editIdade.setText("");
                     binding.editContacto.setText("");
                 }
+
+
             }
         });
 
@@ -166,10 +168,29 @@ public class OperationActivity extends AppCompatActivity {
     }
 
     public boolean validation(String nome,  int idade, String sexo, long contacto, String horario){
+        boolean validation = false;
         if(nome.equals("") || nome.equals(null) || idade == 0 || sexo.equals(null) || sexo.equals("") || contacto == 0
-         || horario.equals("") || horario.equals(null)) return false;
+         || horario.equals("") || horario.equals(null)) {
+            clearCamps();
+            Toast.makeText(getApplication(),"dados invalidos", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(idade <18){
+            clearCamps();
+            Toast.makeText(getApplication(),"idade invalida", Toast.LENGTH_SHORT).show();
+        }else{
+            validation = true;
+        }
+        return  validation;
+    }
 
-        return  true;
+    public void clearCamps(){
+        binding.editNome.setText("");
+        binding.editIdade.setText("");
+        binding.editContacto.setText("");
+        binding.radioButtonFemenino.setChecked(false);
+        binding.radioButtonMasculino.setChecked(false);
+        binding.spinner.setSelection(0);
+
     }
 
 
